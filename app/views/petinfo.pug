@@ -1,0 +1,66 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Pet Owners
+    style.
+      body {
+          font-family: sans;
+          background-color: rgba(250, 159, 241, 0.73);
+          margin: 0;
+          padding: 0;
+      }
+      .container {
+          max-width: 800px;
+          margin: 100px auto;
+          padding: 100px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+          text-align: center;
+          color: #333;
+          margin-top: 0;
+      }
+      table {
+          width: 100%;
+          margin: 20px auto;
+          border-collapse: collapse;
+          border: 1px solid #333;
+          background-color: #fff;
+      }
+      th, td {
+          border: 1px solid #333;
+          padding: 10px;
+          text-align: left;
+      }
+      th {
+          background-color:  rgba(250, 159, 241, 0.73);
+      }
+      td {
+          background-color: #fff;
+      }
+  body
+    div.container 
+        h1 Pet Info
+        table
+            thead
+                tr
+                    th Pet ID
+                    th Name
+                    th Age
+                    th Color 
+                    th Breed 
+            tbody
+                for item in data 
+                    tr 
+                        td #{item.PetId}
+                        td #{item.Name} 
+                        td #{item.Age}
+                        td #{item.Color} 
+                        td #{item.Breed} 
+
+
+

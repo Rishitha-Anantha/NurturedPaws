@@ -1,0 +1,74 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Nurtured Paws
+        style.
+            body {
+                font-family: sans;
+                background-color:  rgba(242, 181, 190, 0.73);
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 900px;
+                margin: 100px auto;
+                padding: 100px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+                margin-top: 0;
+            }
+            table {
+                width: 100%;
+                margin: 20px auto;
+                border-collapse: collapse;
+                border: 1px solid #333;
+                background-color: #fff;
+            }
+            th, td {
+                border: 1px solid #333;
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color:  rgba(242, 181, 190, 0.73) ;
+            }
+            td {
+                background-color: #fff;
+            }
+    body
+        div.container 
+            h1 Pet Nurturer Info
+                table
+                    thead
+                        tr
+                            th Pet Nurturer ID
+                            th Name
+                            th Gender 
+                            th Age 
+                            th Contact 
+                            th Experience 
+                            th Location 
+                            th DBS Status 
+                    tbody
+                        for item in data 
+                            tr 
+                                td #{item.Id}
+                                td #{item.Name}
+                                td #{item.Gender} 
+                                td #{item.Age} 
+                                td #{item.PhoneNumber} 
+                                td #{item.Experience} 
+                                td #{item.Location} 
+                                td #{item.DBSStatus}
+
+
+
+
+

@@ -4,24 +4,76 @@ const express = require("express");
 // Create express app
 var app = express();
 
+
 // Add static files location
 app.use(express.static("static"));
+
+// Use the Pug templating engine
+app.set('view engine', 'pug');
+app.set('views', './app/views');
 
 // Get the functions in the db.js file to use
 const db = require('./services/db');
 
 // Create a route for root - /
-app.get("/", function(req, res) {
-    res.send("Hello world!");
+app.get("/Home", function(req, res) {
+    res.render("home");
+});
+
+
+app.get("/appointments", function(req, res){
+    var sql = 'select * from Appointments';
+    db.query(sql).then(results => {
+        res.render('appointments', {data:results});
+    });
+});
+
+app.get("/pet_owners", function(req, res){
+    var sql = 'select * from Pet_Owners';
+    db.query(sql).then(results => {
+        res.render('petowners', {data:results});
+    });
+});
+
+app.get("/single-owner/:PoId", function(req, res){
+    var poId = req.params.PoId;
+    var poSql = 'select * from Pet_Owners WHERE PoId = ?';
+    db.query(poSql, [poId]).then(results => {
+        res.render('single-petowner',{data:results});
+
+    });
+});
+
+app.get("/pet_nurturers", function(req, res){
+    var sql = 'select * from Pet_Nurturers';
+    db.query(sql).then(results => {
+        res.render('petnurturers', {data:results});
+    });
+});
+
+app.get("/single-nurturer/:Id", function(req, res){
+    var pnId = req.params.Id;
+    var pnSql = 'select * from Pet_Nurturers WHERE Id = ?';
+    db.query(pnSql, [pnId]).then(results => {
+        res.render('single-petnurturer',{data:results});
+    });
+});
+
+app.get("/pet_info/:PetId", function(req, res){
+    var petId = req.params.PetId;
+    var pSql = 'select * from Pet_Info WHERE PetId = ?';
+    db.query(pSql, [petId]).then(results => {
+        res.render('petinfo', {data:results});
+    });
 });
 
 // Create a route for testing the db
 app.get("/db_test", function(req, res) {
     // Assumes a table called test_table exists in your database
-    sql = 'select * from test_table';
+    sql = 'select * from test-table';
     db.query(sql).then(results => {
         console.log(results);
-        res.send(results)
+        res.send(results);
     });
 });
 
