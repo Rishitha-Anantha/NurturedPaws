@@ -15,8 +15,11 @@ app.set('views', './app/views');
 // Get the functions in the db.js file to use
 const db = require('./services/db');
 
+// Get the petowner model
+const { PetOwner } = require("./models/petowner");
+
 // Create a route for root - /
-app.get("/Home", function(req, res) {
+app.get("/", function(req, res) {
     res.render("home");
 });
 
@@ -35,13 +38,17 @@ app.get("/pet_owners", function(req, res){
     });
 });
 
-app.get("/single-owner/:PoId", function(req, res){
+app.get("/single-owner/:PoId", async function(req, res){
     var poId = req.params.PoId;
-    var poSql = 'select * from Pet_Owners WHERE PoId = ?';
-    db.query(poSql, [poId]).then(results => {
-        res.render('single-petowner',{data:results});
-
-    });
+    var owner = new PetOwner(poId);
+    await owner.getPetOwnerName();
+    await owner.getPetOwnerGender();
+    await owner.getPetOwnerAge();
+    await owner.getPetOwnerLocation();
+    await owner.getPetOwnerContact();
+    await owner.getPetOwnerPetId();
+    console.log(owner);
+    res.render('single-petowner', {owner:owner})
 });
 
 app.get("/pet_nurturers", function(req, res){

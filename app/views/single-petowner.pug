@@ -56,16 +56,15 @@ html(lang="en")
               th Contact
               th Pet ID
           tbody
-            for item in data 
               tr 
-                td #{item.PoId}
-                td #{item.Name} 
-                td #{item.Gender} 
-                td #{item.Age}
-                td #{item.Location} 
-                td #{item.Contact} 
+                td #{owner.PoId}
+                td #{owner.Name} 
+                td #{owner.Gender} 
+                td #{owner.Age}
+                td #{owner.Location} 
+                td #{owner.Contact} 
                 td 
-                  a(href='/pet_info/' + item. PetId) #{item.PetId}
+                  a(href='/pet_info/' + owner.PetId) #{owner.PetId}
 
 
 
