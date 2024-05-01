@@ -4,6 +4,7 @@ const express = require("express");
 // Create express app
 var app = express();
 
+app.use(express.urlencoded({ extended: true }));
 
 // Add static files location
 app.use(express.static("static"));
@@ -46,6 +47,7 @@ app.get("/single-owner/:PoId", async function(req, res){
     await owner.getPetOwnerAge();
     await owner.getPetOwnerLocation();
     await owner.getPetOwnerContact();
+    await owner.getPetOwnerDescription();
     await owner.getPetOwnerPetId();
     console.log(owner);
     res.render('single-petowner', {owner:owner})
@@ -74,31 +76,17 @@ app.get("/pet_info/:PetId", function(req, res){
     });
 });
 
-// Create a route for testing the db
-app.get("/db_test", function(req, res) {
-    // Assumes a table called test_table exists in your database
-    sql = 'select * from test-table';
-    db.query(sql).then(results => {
-        console.log(results);
-        res.send(results);
-    });
-});
-
-// Create a route for /goodbye
-// Responds to a 'GET' request
-app.get("/goodbye", function(req, res) {
-    res.send("Goodbye world!");
-});
-
-// Create a dynamic route for /hello/<name>, where name is any value provided by user
-// At the end of the URL
-// Responds to a 'GET' request
-app.get("/hello/:name", function(req, res) {
-    // req.params contains any parameters in the request
-    // We can examine it in the console for debugging purposes
-    console.log(req.params);
-    //  Retrieve the 'name' parameter and use it in a dynamically generated page
-    res.send("Hello " + req.params.name);
+app.post('/add-description', async function (req, res) {
+    params = req.body;
+    // Adding a try/catch block which will be useful later when we add to the database
+    var owner = new PetOwner(params.PoId);
+    try {
+        // Just a console.log for now to check we are receiving the form field values
+        await owner.addPetOwnerDescription(params.Description);
+        res.redirect('/single-owner/', params.PoId );
+     } catch (err) {
+         console.error(`Error while adding note `, err.message);
+     }
 });
 
 // Start server on port 3000

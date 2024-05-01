@@ -54,6 +54,7 @@ html(lang="en")
               th Age
               th Location
               th Contact
+              th Feedback
               th Pet ID
           tbody
               tr 
@@ -63,8 +64,14 @@ html(lang="en")
                 td #{owner.Age}
                 td #{owner.Location} 
                 td #{owner.Contact} 
+                td #{owner.Description}
                 td 
                   a(href='/pet_info/' + owner.PetId) #{owner.PetId}
-
+      h2 Add feedback about the owner
+        form(action='/add-description',method='POST')
+          input(type='hidden' name='PoId' value=owner.PoId)
+          textarea(name='Description' cols=50 rows=6)
+          div 
+          input(type='submit' value='Submit')
 
 

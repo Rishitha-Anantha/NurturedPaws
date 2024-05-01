@@ -14,6 +14,8 @@ class PetOwner {
     Location;
     // Pet Owner Contact
     Contact;
+    // Description
+    Description;
     // Pet Owner PetId
     PetId;
 
@@ -78,6 +80,24 @@ class PetOwner {
         }
         
     }
+
+    async getPetOwnerDescription() {
+        if (typeof this.Description !== 'string') {
+            var sql = "SELECT * from Pet_Owners where PoId = ?"
+            const results = await db.query(sql, [this.PoId]);
+            this.Description = results[0].Description;
+        }
+
+    }
+    
+    async addPetOwnerDescription(Description) {
+        var sql = "UPDATE Pet_Owners SET Description = ? WHERE Pet_Owners.PoId = ?"
+        const result = await db.query(sql, [Description, this.PoId]);
+        // Ensure the note property in the model is up to date
+        this.Description = Description;
+        return result;
+    }
+    
 }
 
 
